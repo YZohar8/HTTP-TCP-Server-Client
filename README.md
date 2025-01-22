@@ -16,7 +16,7 @@ A robust TCP server implementation that handles file requests via HTTP/1.1 proto
 
 - **Error Handling** 🚨
   - 404 Not Found responses
-  - 301 Redirects
+  - 301 Redirects with location headers
   - Timeout management
 
 ## Quick Start 🚀
@@ -31,9 +31,32 @@ python3 tcp_server.py [PORT]
 python3 tcp_client.py [SERVER_IP] [PORT]
 ```
 
-## Example Interactions 🔄
+## run Methods 🔄
 
-### Successful Request 📧
+### 1. Python Client 🐍
+```bash
+# Request a file from subdirectory
+after tun the client anter this:
+
+a/1.jpg
+
+# The file will be downloaded to your current directory
+you can run all files that append in File.
+```
+
+### 2. Web Browser 🌐
+Enter in your browser's address bar:
+```
+http://serverHost:serverPort/filename
+
+# Examples:
+http://localhost:8080/image.jpg
+http://localhost:8080/docs/readme.txt
+```
+
+## Example Interactions how it's work 🔄
+
+### 1. Basic File Request 📧
 ```http
 # Request
 GET / HTTP/1.1
@@ -47,7 +70,28 @@ Content-Length: 11
 hello world
 ```
 
-### Error Cases ❌
+### 2. Redirect Handling 🔄
+```http
+# Client Request
+GET /a/picture.jpg HTTP/1.1
+Host: localhost:8080
+Connection: keep-alive
+
+# Server Redirect Response
+HTTP/1.1 301 Moved Permanently
+Location: /b/picture.jpg
+Connection: keep-alive
+
+# Final Response
+HTTP/1.1 200 OK
+Content-Length: 12345
+Content-Type: image/jpeg
+Connection: keep-alive
+
+[Image Data...]
+```
+
+### 3. Error Cases ❌
 - File Not Found: Returns 404 error
 - Redirect Needed: Returns 301 with location header
 
@@ -63,11 +107,50 @@ hello world
 - Text file serving
 - Binary file support (.jpg, .ico)
 - Directory traversal protection
+- Automatic file type detection
 
 ### Network Analysis 🔍
 - Wireshark compatibility
 - Connection tracking
 - Packet inspection
+
+## the file 📂
+the file that the code use it is files.
+if you want to change this delte the file add append new with name files.
+
+### tree 🖼️
+```bash
+.
+├── a
+│   ├── 1.jpg
+│   ├── 2.jpg
+│   ├── 3.jpg
+│   ├── 4.jpg
+│   ├── 5.jpg
+│   ├── 6.jpg
+│   └── b
+│       ├── 1.jpg
+│       ├── 2.jpg
+│       ├── 3.jpg
+│       ├── 4.jpg
+│       ├── 5.jpg
+│       ├── 6.jpg
+│       └── ref.html
+├── c
+│   ├── Footube.html
+│   ├── footube.css
+│   ├── footube.js
+│   └── img
+│       ├── 1.jpg
+│       ├── 2.jpg
+│       ├── 3.jpg
+│       ├── 4.jpg
+│       ├── 5.jpg
+│       └── 6.jpg
+├── favicon.ico
+├── index.html
+└── result.html
+```
 
 ## Requirements 📋
 - Python 3.x
@@ -85,13 +168,5 @@ hello world
 - Handle binary files properly
 - Monitor timeouts
 - Validate paths
-
-## Contributors 👥
-- Development Team
-- Network Specialists
-- QA Engineers
-
-Need help? Open an issue! 🤝
-
----
-Made with ❤️ by the TCP Server Team
+- Use appropriate file extensions
+- Check server responses for redirects
