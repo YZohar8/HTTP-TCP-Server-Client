@@ -21,6 +21,12 @@ A robust TCP server implementation that handles file requests via HTTP/1.1 proto
 
 ## Quick Start 🚀
 
+### Clone Project
+```bash
+git clone https://github.com/YZohar8/HTTP-TCP-Server-Client.git
+cd HTTP-TCP-Server-Client
+```
+
 ### Server Setup 💻
 ```bash
 python3 tcp_server.py [PORT]
